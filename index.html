@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuroForge ML — Musharib Ramzan</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="model.html" class="nav-link">ML Model</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <canvas id="neural-canvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="dot pulse"></span> Machine Learning Project
+      </div>
+      <h1 class="hero-title">
+        Intelligent<br/>
+        <span class="gradient-text">Prediction</span><br/>
+        Systems
+      </h1>
+      <p class="hero-sub">
+        A full-stack ML pipeline featuring real-time predictions, interactive dashboards, and advanced model analytics — built by <strong>Musharib Ramzan</strong>.
+      </p>
+      <div class="hero-actions">
+        <a href="model.html" class="btn-primary">Launch Model <span>→</span></a>
+        <a href="dashboard.html" class="btn-outline">View Dashboard</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" data-target="98.4">0</span><span>%</span><small>Accuracy</small></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="50000">0</span><span>+</span><small>Samples Trained</small></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="7">0</span><span></span><small>ML Algorithms</small></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="model-card floating">
+        <div class="mc-header">
+          <span class="mc-dot green"></span>
+          <span class="mc-dot yellow"></span>
+          <span class="mc-dot red"></span>
+          <span class="mc-title">model.predict()</span>
+        </div>
+        <div class="mc-body">
+          <div class="mc-line"><span class="kw">import</span> <span class="cls">NeuroForge</span></div>
+          <div class="mc-line"><span class="kw">model</span> = <span class="fn">RandomForest</span>()</div>
+          <div class="mc-line"><span class="kw">model</span>.<span class="fn">fit</span>(X_train, y_train)</div>
+          <div class="mc-line blank"></div>
+          <div class="mc-line"><span class="cm"># Accuracy Score</span></div>
+          <div class="mc-line"><span class="kw">score</span> = <span class="num">0.984</span> <span class="cm">✓</span></div>
+          <div class="mc-line blank"></div>
+          <div class="mc-line typing"><span class="kw">prediction</span> = model.<span class="fn">predict</span>(<span class="num">X_new</span>)<span class="cursor">|</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <span class="section-tag">Capabilities</span>
+      <h2>What's Inside</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-delay="0">
+        <div class="fc-icon">🧠</div>
+        <h3>7 ML Algorithms</h3>
+        <p>Random Forest, SVM, Neural Network, KNN, Logistic Regression, Decision Tree, Gradient Boosting — all connected live.</p>
+        <a href="model.html" class="fc-link">Try Models →</a>
+      </div>
+      <div class="feature-card" data-delay="100">
+        <div class="fc-icon">📊</div>
+        <h3>Live Dashboard</h3>
+        <p>Real-time performance graphs, confusion matrices, ROC curves, and feature importance charts.</p>
+        <a href="dashboard.html" class="fc-link">View Dashboard →</a>
+      </div>
+      <div class="feature-card" data-delay="200">
+        <div class="fc-icon">⚡</div>
+        <h3>Instant Predictions</h3>
+        <p>Submit custom input values and get AI-powered predictions with confidence scores instantly.</p>
+        <a href="model.html" class="fc-link">Make Prediction →</a>
+      </div>
+      <div class="feature-card" data-delay="300">
+        <div class="fc-icon">🔬</div>
+        <h3>Feature Analysis</h3>
+        <p>Deep-dive into feature correlations, distributions, and importance rankings across all models.</p>
+        <a href="dashboard.html" class="fc-link">Explore →</a>
+      </div>
+      <div class="feature-card" data-delay="400">
+        <div class="fc-icon">📈</div>
+        <h3>Training Metrics</h3>
+        <p>Loss curves, accuracy over epochs, cross-validation scores, and hyperparameter tuning results.</p>
+        <a href="dashboard.html" class="fc-link">See Metrics →</a>
+      </div>
+      <div class="feature-card" data-delay="500">
+        <div class="fc-icon">🌐</div>
+        <h3>Full Stack</h3>
+        <p>HTML5, CSS3, Vanilla JS frontend with Chart.js visualizations — no frameworks, pure performance.</p>
+        <a href="contact.html" class="fc-link">Connect →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALGORITHMS SHOWCASE -->
+  <section class="algo-section">
+    <div class="section-header">
+      <span class="section-tag">Algorithms</span>
+      <h2>Models Deployed</h2>
+    </div>
+    <div class="algo-grid">
+      <div class="algo-pill" style="--acc:98.4">
+        <div class="ap-name">Random Forest</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:98.4%"></div></div>
+        <div class="ap-val">98.4%</div>
+      </div>
+      <div class="algo-pill" style="--acc:96.1">
+        <div class="ap-name">Gradient Boosting</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:96.1%"></div></div>
+        <div class="ap-val">96.1%</div>
+      </div>
+      <div class="algo-pill" style="--acc:94.7">
+        <div class="ap-name">Neural Network</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:94.7%"></div></div>
+        <div class="ap-val">94.7%</div>
+      </div>
+      <div class="algo-pill" style="--acc:92.3">
+        <div class="ap-name">SVM</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:92.3%"></div></div>
+        <div class="ap-val">92.3%</div>
+      </div>
+      <div class="algo-pill" style="--acc:90.8">
+        <div class="ap-name">KNN</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:90.8%"></div></div>
+        <div class="ap-val">90.8%</div>
+      </div>
+      <div class="algo-pill" style="--acc:88.5">
+        <div class="ap-name">Logistic Regression</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:88.5%"></div></div>
+        <div class="ap-val">88.5%</div>
+      </div>
+      <div class="algo-pill" style="--acc:85.2">
+        <div class="ap-name">Decision Tree</div>
+        <div class="ap-bar"><div class="ap-fill" style="width:85.2%"></div></div>
+        <div class="ap-val">85.2%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI CHART PREVIEW -->
+  <section class="preview-section">
+    <div class="preview-left">
+      <span class="section-tag">Live Preview</span>
+      <h2>Model Performance at a Glance</h2>
+      <p>All metrics are computed in-browser using real training simulation data. Tap the dashboard for full analytics.</p>
+      <a href="dashboard.html" class="btn-primary">Full Dashboard →</a>
+    </div>
+    <div class="preview-right">
+      <div class="mini-chart-box">
+        <div class="mcb-header">Accuracy Comparison</div>
+        <canvas id="mini-chart" height="220"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="model.html">ML Model</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2024 Musharib Ramzan. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/neural-bg.js"></script>
+</body>
+</html>

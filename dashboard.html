@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — NeuroForge ML</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page">
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="model.html" class="nav-link">ML Model</a>
+      <a href="dashboard.html" class="nav-link active">Dashboard</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="dash-header">
+    <div class="dh-left">
+      <span class="section-tag">Analytics</span>
+      <h1>ML Dashboard</h1>
+      <p>Comprehensive performance analytics across all models and datasets</p>
+    </div>
+    <div class="dh-right">
+      <div class="live-badge"><span class="dot pulse"></span> Live Data</div>
+      <div class="dash-timestamp" id="dash-timestamp"></div>
+    </div>
+  </div>
+
+  <main class="dashboard-main">
+    <!-- KPI CARDS -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-info">
+          <div class="kpi-val" id="kpi-acc">98.4%</div>
+          <div class="kpi-label">Best Accuracy</div>
+          <div class="kpi-trend up">↑ +1.2% vs last</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">⚡</div>
+        <div class="kpi-info">
+          <div class="kpi-val" id="kpi-speed">12ms</div>
+          <div class="kpi-label">Avg Inference</div>
+          <div class="kpi-trend up">↑ 3ms faster</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">📦</div>
+        <div class="kpi-info">
+          <div class="kpi-val" id="kpi-preds">50,247</div>
+          <div class="kpi-label">Total Predictions</div>
+          <div class="kpi-trend up">↑ +2,103 today</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🔬</div>
+        <div class="kpi-info">
+          <div class="kpi-val" id="kpi-models">7</div>
+          <div class="kpi-label">Models Deployed</div>
+          <div class="kpi-trend neutral">All active</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 1: Accuracy + Training Loss -->
+    <div class="dash-row">
+      <div class="dash-card wide">
+        <div class="dc-header">
+          <span class="dc-title">Model Accuracy Comparison</span>
+          <div class="dc-controls">
+            <button class="dc-btn active" data-chart="acc-compare" data-type="bar">Bar</button>
+            <button class="dc-btn" data-chart="acc-compare" data-type="radar">Radar</button>
+          </div>
+        </div>
+        <canvas id="acc-compare" height="260"></canvas>
+      </div>
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Training Loss Curve</span></div>
+        <canvas id="loss-chart" height="260"></canvas>
+      </div>
+    </div>
+
+    <!-- ROW 2: ROC Curve + Confusion Matrix -->
+    <div class="dash-row">
+      <div class="dash-card">
+        <div class="dc-header">
+          <span class="dc-title">ROC Curve</span>
+          <span class="dc-sub">Random Forest (AUC = 0.997)</span>
+        </div>
+        <canvas id="roc-chart" height="280"></canvas>
+      </div>
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Confusion Matrix</span></div>
+        <div class="confusion-matrix" id="confusion-matrix"></div>
+        <div class="cm-labels" id="cm-labels"></div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Feature Importance + Data Distribution -->
+    <div class="dash-row">
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Feature Importance (RF)</span></div>
+        <canvas id="feature-chart" height="280"></canvas>
+      </div>
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Data Distribution</span></div>
+        <canvas id="dist-chart" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- ROW 4: Predictions Over Time + Cross-Val -->
+    <div class="dash-row">
+      <div class="dash-card wide">
+        <div class="dc-header">
+          <span class="dc-title">Predictions Over Time (Live)</span>
+          <button class="dc-btn active" id="pause-live" onclick="toggleLive()">⏸ Pause</button>
+        </div>
+        <canvas id="live-chart" height="200"></canvas>
+      </div>
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Cross-Validation Scores</span></div>
+        <canvas id="cv-chart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- ROW 5: Precision-Recall + Hyperparameter Heatmap -->
+    <div class="dash-row">
+      <div class="dash-card">
+        <div class="dc-header"><span class="dc-title">Precision vs Recall</span></div>
+        <canvas id="pr-chart" height="260"></canvas>
+      </div>
+      <div class="dash-card wide">
+        <div class="dc-header"><span class="dc-title">Hyperparameter Sensitivity</span></div>
+        <div class="heatmap-container" id="heatmap-container"></div>
+      </div>
+    </div>
+
+    <!-- MODEL METRICS TABLE -->
+    <div class="dash-row full">
+      <div class="dash-card full">
+        <div class="dc-header"><span class="dc-title">Complete Model Metrics Report</span></div>
+        <div class="metrics-table-wrap">
+          <table class="metrics-table" id="metrics-table">
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Accuracy</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+                <th>AUC-ROC</th>
+                <th>Inference (ms)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><span class="brand-icon">⬡</span><span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="model.html">ML Model</a>
+        <a href="dashboard.html">Dashboard</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2024 Musharib Ramzan</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

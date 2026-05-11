@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ML Model — NeuroForge ML</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/model.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="model-page">
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="model.html" class="nav-link active">ML Model</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="model-hero">
+    <div class="mh-content">
+      <span class="section-tag">Interactive ML Engine</span>
+      <h1>Make Predictions</h1>
+      <p>Select an algorithm, configure your inputs, and run real-time predictions with full confidence analysis.</p>
+    </div>
+  </div>
+
+  <main class="model-main">
+    <!-- ALGORITHM SELECTOR -->
+    <section class="algo-selector-section">
+      <h2 class="sec-title">1. Choose Algorithm</h2>
+      <div class="algo-buttons" id="algo-buttons">
+        <button class="algo-btn active" data-algo="random_forest">🌲 Random Forest</button>
+        <button class="algo-btn" data-algo="gradient_boosting">🚀 Gradient Boosting</button>
+        <button class="algo-btn" data-algo="neural_network">🧠 Neural Network</button>
+        <button class="algo-btn" data-algo="svm">⚡ SVM</button>
+        <button class="algo-btn" data-algo="knn">📍 KNN</button>
+        <button class="algo-btn" data-algo="logistic">📉 Logistic Regression</button>
+        <button class="algo-btn" data-algo="decision_tree">🌿 Decision Tree</button>
+      </div>
+      <div class="algo-info-box" id="algo-info-box">
+        <div class="aib-inner">
+          <div class="aib-name" id="aib-name">Random Forest</div>
+          <div class="aib-desc" id="aib-desc">An ensemble of decision trees that uses bagging to improve accuracy and reduce overfitting. Best for structured/tabular data with complex patterns.</div>
+          <div class="aib-metrics">
+            <div class="aib-m"><span>Accuracy</span><strong id="aib-acc">98.4%</strong></div>
+            <div class="aib-m"><span>Precision</span><strong id="aib-prec">97.8%</strong></div>
+            <div class="aib-m"><span>Recall</span><strong id="aib-rec">98.1%</strong></div>
+            <div class="aib-m"><span>F1-Score</span><strong id="aib-f1">97.9%</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATASET SELECTOR -->
+    <section class="dataset-section">
+      <h2 class="sec-title">2. Select Dataset</h2>
+      <div class="dataset-tabs" id="dataset-tabs">
+        <button class="ds-tab active" data-ds="iris">🌸 Iris Classification</button>
+        <button class="ds-tab" data-ds="diabetes">🩺 Diabetes Prediction</button>
+        <button class="ds-tab" data-ds="housing">🏠 Housing Prices</button>
+        <button class="ds-tab" data-ds="titanic">🚢 Titanic Survival</button>
+      </div>
+    </section>
+
+    <!-- INPUT FORM -->
+    <section class="input-section">
+      <h2 class="sec-title">3. Enter Feature Values</h2>
+      <div class="input-grid" id="input-grid">
+        <!-- Dynamically generated -->
+      </div>
+      <div class="input-actions">
+        <button class="btn-primary" id="predict-btn" onclick="runPrediction()">
+          <span id="btn-text">Run Prediction ⚡</span>
+        </button>
+        <button class="btn-outline" onclick="randomizeInputs()">🎲 Randomize Inputs</button>
+        <button class="btn-outline" onclick="resetInputs()">↺ Reset</button>
+      </div>
+    </section>
+
+    <!-- RESULTS PANEL -->
+    <section class="results-section" id="results-section" style="display:none">
+      <h2 class="sec-title">4. Prediction Results</h2>
+      <div class="results-grid">
+        <div class="result-main">
+          <div class="result-card primary">
+            <div class="rc-label">Prediction</div>
+            <div class="rc-value" id="pred-class">—</div>
+            <div class="rc-conf" id="pred-conf">Confidence: —</div>
+          </div>
+          <div class="confidence-bars" id="confidence-bars"></div>
+        </div>
+        <div class="result-chart-box">
+          <div class="rcb-title">Confidence Distribution</div>
+          <canvas id="conf-chart" height="220"></canvas>
+        </div>
+      </div>
+
+      <!-- SHAP-LIKE FEATURE IMPORTANCE -->
+      <div class="shap-section">
+        <h3>Feature Contributions (SHAP-like)</h3>
+        <div id="shap-bars"></div>
+      </div>
+
+      <!-- MODEL INTERNALS -->
+      <div class="internals-section">
+        <h3>Model Internals</h3>
+        <div class="internals-grid">
+          <div class="internal-card">
+            <div class="ic-label">Trees/Estimators</div>
+            <div class="ic-val" id="ic-trees">100</div>
+          </div>
+          <div class="internal-card">
+            <div class="ic-label">Max Depth</div>
+            <div class="ic-val" id="ic-depth">5</div>
+          </div>
+          <div class="internal-card">
+            <div class="ic-label">Inference Time</div>
+            <div class="ic-val" id="ic-time">—</div>
+          </div>
+          <div class="internal-card">
+            <div class="ic-label">Features Used</div>
+            <div class="ic-val" id="ic-feats">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BATCH PREDICTION -->
+    <section class="batch-section">
+      <h2 class="sec-title">5. Batch Prediction Simulator</h2>
+      <p class="sec-desc">Run 100 simulated predictions and see the distribution of results.</p>
+      <button class="btn-primary" onclick="runBatchPrediction()">Run 100 Predictions 🔁</button>
+      <div class="batch-results" id="batch-results" style="display:none">
+        <canvas id="batch-chart" height="180"></canvas>
+        <div class="batch-stats" id="batch-stats"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><span class="brand-icon">⬡</span><span class="brand-text">NeuroForge<span class="brand-accent">ML</span></span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="model.html">ML Model</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2024 Musharib Ramzan</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/model.js"></script>
+</body>
+</html>
